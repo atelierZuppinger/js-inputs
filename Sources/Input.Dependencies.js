@@ -10,8 +10,12 @@ Usage in HTML:
 		}"
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Dependencies
+requires:
+  - Input
 ...
 */
+
+
 
 
 Input.Dependencies = new Class({

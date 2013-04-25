@@ -4,6 +4,9 @@ name: Input.Date
 description: Add date picker to a date field
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Date
+requires:
+  - Input
+  - Picker.Date.Range
 ...
 */
 

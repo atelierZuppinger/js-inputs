@@ -4,6 +4,8 @@ name: Input.Default
 description: Show a text on top of a field like placeholder. Waits value.length > 0 to hide label.
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Texts
+requires:
+  - Input
 ...
 */
 
@@ -49,9 +51,6 @@ Input.Default = new Class({
 	restoreValue: function(values, focus){
 
 		this.field.set('value', values);
-		
-	},
-	onEmpty: function(){
 		
 	}
 });

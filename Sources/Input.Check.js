@@ -5,6 +5,8 @@ description: Change css class of input
              IE needs to have class on the label so there is exceptions for it
 authors: AtelierZuppinger:@fingerflow
 provides: Input.CheckButton
+requires:
+  - Input
 ...
 */
 

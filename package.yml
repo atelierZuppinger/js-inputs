@@ -1,4 +1,10 @@
 name: Inputs
+author: fingerflow
+current: 1.0.0
+tags: [Form, Input]
+copyright: "&copy; [Arian Stolwijk](http://www.aryweb.nl) and [MonkeyPhysics.com](http://monkeyphysics.com)"
+license: MIT
+description: MooTools Input manager class
 
 sources:
   - Source/Input.js

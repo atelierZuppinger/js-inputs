@@ -4,6 +4,10 @@ name: Input.HTML
 description: Show a text on top of a field like placeholder. Waits value.length > 0 to hide label.
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Texts
+requires:
+  - Input
+  - Core/Element
+  - wysihtml5/Editor
 ...
 */
 
@@ -27,7 +31,6 @@ Input.HTML = new Class({
 		    stylesheets:    "/GUI/CSS/fonts.css",
 		    parserRules:    this.get_parserRules()
 		  });
-			
 			
 			
 			this.iframe = new IFrame(this.editor.composer.iframe);

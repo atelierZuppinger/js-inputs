@@ -5,7 +5,9 @@ description: Attach custom behavior to form elements (input, select, textarea)
              Works with different Classes
 authors: AtelierZuppinger:@fingerflow
 provides: Input
-...
+requires:
+  - More/Form.Validator
+..
 */
 
 
