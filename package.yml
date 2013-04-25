@@ -1,0 +1,15 @@
+name: Inputs
+
+sources:
+  - Source/Input.js
+  - Source/Input.Dependencies.js
+  - Source/Input.Handlers.js
+  - Source/Input.Default.js
+  - Source/Input.Check.js
+  - Source/Input.Text.js
+  - Source/Input.HTML.js
+  - Source/Input.Date.js
+  - Source/Input.Date.Time.js
+  - Source/Input.File.js
+  - Source/Input.Multiple.Text.js
+  
