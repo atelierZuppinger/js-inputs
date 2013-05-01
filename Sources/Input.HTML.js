@@ -7,7 +7,7 @@ provides: Input.Texts
 requires:
   - Input
   - Core/Element
-  - wysihtml5/Editor
+  - wysihtml5/wysihtml5-0.4
 ...
 */
 
