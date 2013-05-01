@@ -8,6 +8,7 @@ authors: AtelierZuppinger:@fingerflow
 provides: Input
 requires:
   - Input/Anchor-After
+  - Core/Element
 
 ...
 */
