@@ -21,7 +21,7 @@ Input.Default = new Class({
 		
 		this.storeBehaviour( this.field );
 		
-		this.form.addEvent('reset', this.onEmpty.pass );
+		//this.form.addEvent('reset', this.onEmpty.pass );
 		
 
 	},

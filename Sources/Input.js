@@ -9,6 +9,7 @@ provides: Input
 requires:
   - Input/Anchor-After
   - Core/Object
+  - Core/Array
 
 ...
 */
@@ -34,7 +35,6 @@ Input = new Class({
 		this.form = form;
 		this.values = {};
 	
-		
 		fields.each( this.attach );
 		
 		
@@ -64,6 +64,7 @@ Input = new Class({
 		
 		var subObject = customType.split('.'),
 				r = window.Input;
+		
 		
 		subObject.each( function( customType ){
 			if( r[customType] )

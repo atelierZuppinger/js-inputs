@@ -4,7 +4,7 @@
 name: Input.Date.Time
 description: Add date picker to a time field
 authors: AtelierZuppinger:@fingerflow
-provides: Input.Date
+provides: Input.Date.Time
 requires:
   - Input/Input.Date
 

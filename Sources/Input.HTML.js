@@ -4,7 +4,7 @@
 name: Input.HTML
 description: Show a text on top of a field like placeholder. Waits value.length > 0 to hide label.
 authors: AtelierZuppinger:@fingerflow
-provides: Input.Texts
+provides: Input.HTML
 requires:
   - Input/Anchor
   - Core/Element

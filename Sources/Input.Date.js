@@ -6,7 +6,7 @@ authors: AtelierZuppinger:@fingerflow
 provides: Input.Date
 requires:
   - Input/Anchor
-  - Picker.Date.Range
+  - MooTools-DatePicker/Picker.Date.Range
 
 ...
 */

@@ -4,7 +4,7 @@
 name: Input.File
 description: Enable file upload with HTML5 file dropping or oldschool button
 authors: AtelierZuppinger:@fingerflow
-provides: Input.Texts
+provides: Input.File
 requires:
   - Input/Anchor
   - AZ/AZ.CMS
