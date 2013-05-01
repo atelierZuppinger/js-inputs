@@ -1,17 +1,12 @@
 /*
 ---
+
 name: Input.Handlers
-description: Attach and detach dependencies between fields
-Usage in HTML: 
-	data-dependencies="
-		{
-			'element': 'select of depending element',
-			'function': 'function declared in your class options functions'
-		}"
+description: Retrieves options from HTML property data-az-options and pass it as instance option object
 authors: AtelierZuppinger:@fingerflow
-provides: Input.Dependencies
+provides: Input.Handlers
 requires:
-  - Input
+  - Input/Input.Dependencies
 ...
 */
 

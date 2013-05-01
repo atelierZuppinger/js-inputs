@@ -1,11 +1,11 @@
 /*
 ---
-name: Input.Texts
+name: Input.Text
 description: Show a text on top of a field like placeholder. Waits value.length > 0 to hide label.
 authors: AtelierZuppinger:@fingerflow
-provides: Input.Texts
+provides: Input.Text
 requires:
-  - Input
+  - Input/Anchor
 ...
 */
 

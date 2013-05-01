@@ -5,8 +5,9 @@ description: Add date picker to a date field
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Date
 requires:
-  - Input
+  - Input/Anchor
   - Picker.Date.Range
+
 ...
 */
 

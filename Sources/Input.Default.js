@@ -3,9 +3,9 @@
 name: Input.Default
 description: Show a text on top of a field like placeholder. Waits value.length > 0 to hide label.
 authors: AtelierZuppinger:@fingerflow
-provides: Input.Texts
+provides: Input.Default
 requires:
-  - Input
+  - Input/Anchor
 ...
 */
 

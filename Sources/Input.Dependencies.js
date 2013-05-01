@@ -1,5 +1,6 @@
 /*
 ---
+
 name: Input.Dependencies
 description: Attach and detach dependencies between fields
 Usage in HTML: 
@@ -11,8 +12,9 @@ Usage in HTML:
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Dependencies
 requires:
-  - Input
+  - Input/Input
 ...
+
 */
 
 

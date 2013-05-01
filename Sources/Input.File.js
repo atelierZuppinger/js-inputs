@@ -1,12 +1,14 @@
 /*
 ---
+
 name: Input.File
 description: Enable file upload with HTML5 file dropping or oldschool button
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Texts
 requires:
-  - Input
-  - AZ/CMS
+  - Input/Anchor
+  - AZ/AZ.CMS
+
 ...
 */
 

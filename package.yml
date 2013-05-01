@@ -7,15 +7,17 @@ license: MIT
 description: MooTools Input manager class
 
 sources:
-  - Source/Input.js
-  - Source/Input.Dependencies.js
-  - Source/Input.Handlers.js
-  - Source/Input.Default.js
-  - Source/Input.Check.js
-  - Source/Input.Text.js
-  - Source/Input.HTML.js
-  - Source/Input.Date.js
-  - Source/Input.Date.Time.js
-  - Source/Input.File.js
-  - Source/Input.Multiple.Text.js
+  - Sources/Anchor.js
+  - Sources/Anchor-after.js
+  - Sources/Input.js
+  - Sources/Input.Dependencies.js
+  - Sources/Input.Handlers.js
+  - Sources/Input.Default.js
+  - Sources/Input.Check.js
+  - Sources/Input.Text.js
+  - Sources/Input.HTML.js
+  - Sources/Input.Date.js
+  - Sources/Input.Date.Time.js
+  - Sources/Input.File.js
+  - Sources/Input.Multiple.Text.js
   

@@ -1,4 +1,5 @@
 /*
+
 ---
 name: Input.CheckButton
 description: Change css class of input
@@ -6,8 +7,9 @@ description: Change css class of input
 authors: AtelierZuppinger:@fingerflow
 provides: Input.CheckButton
 requires:
-  - Input
+  - Input/Anchor
 ...
+
 */
 
 

@@ -1,11 +1,13 @@
 /*
 ---
+
 name: Input.Date.Time
 description: Add date picker to a time field
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Date
 requires:
-  - Input.Date
+  - Input/Input.Date
+
 ...
 */
 

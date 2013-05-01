@@ -1,13 +1,15 @@
 /*
 ---
+
 name: Input.HTML
 description: Show a text on top of a field like placeholder. Waits value.length > 0 to hide label.
 authors: AtelierZuppinger:@fingerflow
 provides: Input.Texts
 requires:
-  - Input
+  - Input/Anchor
   - Core/Element
   - wysihtml5/wysihtml5-0.4
+
 ...
 */
 
