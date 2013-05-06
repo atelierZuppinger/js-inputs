@@ -15,7 +15,7 @@ requires:
 Input.Date = new Class({
 
 	options: {
-		format: this.dateFormat,
+		format: '%d %m %Y',
 		positionOffset: {x: -44, y: -10},
 		pickerClass: 'datepicker_vista',
 		useFadeInOut: !Browser.ie
@@ -30,10 +30,8 @@ Input.Date = new Class({
 		this.container = field.getParent('fieldset');
 		this.form = form;
 		this.isDateSupported = field.get('type') == 'date';
-		this.dateFormat = "%d / %m / %Y";
-		
-		Date.defineParser(this.dateFormat);
 		this.datePicker = new Picker.Date(field, this.options);
+		
 	},
 	
 	setInitialValue: function(){
