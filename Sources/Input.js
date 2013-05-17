@@ -84,19 +84,21 @@ Input = new Class({
 	**/
 	attach: function(field){
 		
-		var inputType = field.get('data-custom-input-type');
+		var inputCustomType = field.get('data-custom-input-type'),
+				inputType = field.get('type'),
+				inputName = field.get('name'),
+				inputTagName = field.get('tag');
+		
 		// set placeholder on fields
-		if( Form.Placeholder ){
-			var name = field.get('name');
-			if( name )
+		if( Form.Placeholder && inputName && (inputType=='text' || inputTagName=='textarea') ){
 				new Form.Placeholder(name);
 		}
-		if( !inputType )
-			inputType = 'Default';
+		if( !inputCustomType )
+			inputCustomType = 'Default';
 		
 		field.addEvent('change', this.inputChange.pass(field));
 		
-		var object = this.getObjectFromType(inputType);
+		var object = this.getObjectFromType(inputCustomType);
 		
 		
 		if( !object || field.retrieve('behavior') )
