@@ -10,6 +10,7 @@ requires:
   - Input/Anchor-After
   - Core/Object
   - Core/Array
+  - Form-Placeholder/Form.Placeholder
 
 ...
 */
@@ -83,7 +84,14 @@ Input = new Class({
 	**/
 	attach: function(field){
 		
-		var inputCustomType = field.get('data-custom-input-type');
+		var inputCustomType = field.get('data-custom-input-type'),
+				inputType = field.get('type'),
+				inputName = field.get('name'),
+				inputTagName = field.get('tag');
+		
+		if( Form.Placeholder && inputName && (inputTagName=='textarea' || inputType=='text') ){
+			new Form.Placeholder(inputTagName + '[name="'+ inputName +'"]');
+		}
 		
 		if( !inputCustomType )
 			inputCustomType = 'Default';
