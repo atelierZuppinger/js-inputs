@@ -10,6 +10,7 @@ requires:
   - Input/Anchor-After
   - Core/Object
   - Core/Array
+  - Form-Placeholder/Form.Placeholder
 
 ...
 */
@@ -65,7 +66,6 @@ Input = new Class({
 		var subObject = customType.split('.'),
 				r = window.Input;
 		
-		
 		subObject.each( function( customType ){
 			if( r[customType] )
 				r = r[customType];
@@ -85,7 +85,11 @@ Input = new Class({
 	attach: function(field){
 		
 		var inputType = field.get('data-custom-input-type');
-		
+		// set placeholder on fields
+		if( Form.Placeholder ){
+			var name = field.get('name');
+			new Form.Placeholder(name);
+		}
 		if( !inputType )
 			inputType = 'Default';
 		
