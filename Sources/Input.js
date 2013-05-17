@@ -88,7 +88,8 @@ Input = new Class({
 		// set placeholder on fields
 		if( Form.Placeholder ){
 			var name = field.get('name');
-			new Form.Placeholder(name);
+			if( name )
+				new Form.Placeholder(name);
 		}
 		if( !inputType )
 			inputType = 'Default';
