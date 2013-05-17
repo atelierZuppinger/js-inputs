@@ -91,7 +91,7 @@ Input = new Class({
 		
 		// set placeholder on fields
 		if( Form.Placeholder && inputName && (inputType=='text' || inputTagName=='textarea') ){
-				new Form.Placeholder(name);
+				new Form.Placeholder(inputName);
 		}
 		if( !inputCustomType )
 			inputCustomType = 'Default';
