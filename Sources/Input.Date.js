@@ -44,9 +44,12 @@ Input.Date = new Class({
 	},
 	
 	getValue: function(){
-		this.datePicker.getInputDate(this.field);
-		var date = this.datePicker.date.format('%d-%m-%Y');
-		return date;
+		if (this.field.get('value')=='')
+			return false;
+		else {
+			this.datePicker.getInputDate(this.field);
+			return this.datePicker.date.format('%d-%m-%Y');
+		}
 	},
 	getformattedValue: function(){
 		return this.getValue();
