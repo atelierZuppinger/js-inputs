@@ -8,6 +8,7 @@ provides: Input.File
 requires:
   - Input/Anchor
   - AZ/AZ.CMS
+  - Core/Request.JSON
 
 ...
 */
@@ -52,7 +53,7 @@ Input.File = new Class({
 		/*onHighlight
 			onRemoveHighlight*/
 	},
-	Binds: ['storeBehaviour','fileUnlinked', 'fileDeletedCompleted', 'openLibrary', 'insertFromContent', 'insertImage', 'prepare_to_add', 'change_file', 'directUpload', 'updateImageFromLibrary', 'updateImageFromContent', 'deleteImage', 'replaceFromContent', 'directUploadFromContent'],
+	Binds: ['storeBehaviour','fileUnlinked', 'fileDeletedCompleted', 'openLibrary', 'insertFromContent', 'insertImage', 'prepare_to_add', 'change_file', 'directUpload', 'updateImageFromLibrary', 'updateImageFromContent', 'deleteImage', 'replaceFromContent', 'directUploadFromContent', 'setImage'],
 	Implements: [Events, Options],
 	
 	initialize: function(field, form, options){
@@ -66,9 +67,13 @@ Input.File = new Class({
 			finder: add.getElement('.upload-file'),
 			add_new: add
 		};
+		this.loadImage = new Request.JSON({
+			url: '/ajax/files/get_single',
+			onSuccess: this.setImage
+		});
 		this.form = form;
 		this.fieldName = field.get('data-az-field-name');
-		
+		this.insertArea = null;
 		
 		this.fileList = this.field.getElement('.file-list');
 		this.base = this.fileList.getElement('.base');
@@ -189,14 +194,16 @@ Input.File = new Class({
 		this.removeDropMessage();
 	},
 	
-	setImage: function(imageData, div){
-		var img = div.getElement('img');
+	setImage: function(imageData){
+		
+		var img = this.insertArea.getElement('img');
 				
 		img.set({
 			src: imageData.src,
 			'data-az-file-id': imageData.id
 		});
-		
+
+		this.insertArea = null;
 		this.attachedFiles.push(imageData.id);
 		
 	},
@@ -205,7 +212,8 @@ Input.File = new Class({
 		
 		var div = this.base.clone();
 		
-		this.setImage(imageData, div);
+		this.insertArea = div;
+		this.loadImage.send(JSON.encode(imageData));
 		
 		div.removeClass('base').inject(this.fileList);
 		
@@ -219,14 +227,18 @@ Input.File = new Class({
 		var highlight = this.getHighlightedContent(),
 			id = highlight.getElement('img').get('data-az-file-id');
 		this.detachFile(id);
-		this.setImage(imageDatas, highlight);
+		this.insertArea = highlight;
+		this.loadImage.send(JSON.encode(imageDatas));
+		
 		this.insertSuccess();
 	},
 	
 	updateImageFromLibrary: function(event){
 		var id = event.target.getElement('img').get('data-az-file-id');
 		this.detachFile(id);
-		this.setImage(this.imageDatas, event.target);
+		this.insertArea = event.target;
+		this.loadImage.send(JSON.encode(this.imageDatas));
+		
 		this.insertSuccess();
 	},
 	
