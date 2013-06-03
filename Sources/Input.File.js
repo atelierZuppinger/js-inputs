@@ -203,8 +203,13 @@ Input.File = new Class({
 			'data-az-file-id': imageData.id
 		});
 
+		this.insertArea.removeClass('base');
 		this.insertArea = null;
 		this.attachedFiles.push(imageData.id);
+		// on insertion
+		this.insertSuccess();
+
+		this.checkAttachmentLimit();
 		
 	},
 	
@@ -212,15 +217,10 @@ Input.File = new Class({
 		
 		var div = this.base.clone();
 		
+		div.inject(this.fileList);
 		this.insertArea = div;
 		this.loadImage.send(JSON.encode(imageData));
 		
-		div.removeClass('base').inject(this.fileList);
-		
-		// on insertion
-		this.insertSuccess();
-		
-		this.checkAttachmentLimit();
 
 	},
 	updateImageFromContent: function(imageDatas){
@@ -230,7 +230,6 @@ Input.File = new Class({
 		this.insertArea = highlight;
 		this.loadImage.send(JSON.encode(imageDatas));
 		
-		this.insertSuccess();
 	},
 	
 	updateImageFromLibrary: function(event){
@@ -239,7 +238,6 @@ Input.File = new Class({
 		this.insertArea = event.target;
 		this.loadImage.send(JSON.encode(this.imageDatas));
 		
-		this.insertSuccess();
 	},
 	
 	deleteImage: function(event){
