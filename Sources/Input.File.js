@@ -234,12 +234,12 @@ Input.File = new Class({
 	
 	updateImageFromLibrary: function(event){
 		if (event.target.get('tag')=='img')
-			var id = event.target.get('data-az-file-id');
+			var img = event.target;
 		else
-			var id = event.target.getElement('img').get('data-az-file-id');
-		
+			var img = event.target.getElement('img');
+		var id = img.get('data-az-file-id');
 		this.detachFile(id);
-		this.insertArea = event.target;
+		this.insertArea = img.getParent('.attached_file');
 		this.loadImage.send(JSON.encode(this.imageDatas));
 		
 	},
