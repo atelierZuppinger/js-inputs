@@ -196,12 +196,15 @@ Input.File = new Class({
 	
 	setImage: function(imageData){
 		
-		var img = this.insertArea.getElement('img');
+		var img = this.insertArea.getElement('img'),
+			filename = this.insertArea.getElement('.filename');
 				
 		img.set({
 			src: imageData.src,
 			'data-az-file-id': imageData.id
 		});
+
+		filename.set('text', imageData.title);
 
 		this.insertArea.removeClass('base');
 		this.insertArea = null;
