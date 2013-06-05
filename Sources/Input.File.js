@@ -203,8 +203,8 @@ Input.File = new Class({
 			src: imageData.src,
 			'data-az-file-id': imageData.id
 		});
-
-		filename.set('text', imageData.title);
+		if (filename )
+			filename.set('text', imageData.title);
 
 		this.insertArea.removeClass('base');
 		this.insertArea = null;
