@@ -53,7 +53,7 @@ Input.File = new Class({
 		/*onHighlight
 			onRemoveHighlight*/
 	},
-	Binds: ['storeBehaviour','fileUnlinked', 'fileDeletedCompleted', 'openLibrary', 'insertFromContent', 'insertImage', 'prepare_to_add', 'change_file', 'directUpload', 'updateImageFromLibrary', 'updateImageFromContent', 'deleteImage', 'replaceFromContent', 'directUploadFromContent', 'setImage'],
+	Binds: ['storeBehaviour','fileUnlinked', 'fileDeletedCompleted', 'openLibrary', 'insertFromContent', 'insertImage', 'prepare_to_add', 'change_file', 'directUpload', 'updateImageFromLibrary', 'updateImageFromContent', 'deleteImage', 'replaceFromContent', 'directUploadFromContent', 'setImage', 'getImageSRC'],
 	Implements: [Events, Options],
 
 	initialize: function(field, form, options){
@@ -69,7 +69,6 @@ Input.File = new Class({
 		};
 		this.form = form;
 		this.fieldName = field.get('data-az-field-name');
-		this.insertArea = null;
 
 		this.fileList = this.field.getElement('.file-list');
 		this.base = this.fileList.getElement('.base');
@@ -190,16 +189,16 @@ Input.File = new Class({
 		this.removeDropMessage();
 	},
 
-	setImage: function(imageData){
-		var img = this.insertArea.getElement('img');
-
+	setImage: function(imageData, insertArea){
+		var img = insertArea.getElement('img');
+		
 		img.set({
 			src: imageData.src,
 			'data-az-file-id': imageData.id
 		});
 
-		this.insertArea.removeClass('base');
-		this.insertArea = null;
+		insertArea.removeClass('base');
+		insertArea = null;
 		this.attachedFiles.push(imageData.id);
 		// on insertion
 		this.insertSuccess();
@@ -211,29 +210,24 @@ Input.File = new Class({
 	insertImage: function(imageData){
 		var div = this.base.clone();
 		div.inject(this.fileList);
-		this.insertArea = div;
 
-		this.loadImage = new Request.JSON({
-			url: '/ajax/files/get_single',
-			onSuccess: this.setImage
-		});
-		this.loadImage.send(JSON.encode(imageData));
+		this.getImageSRC(div, imageData);
 
 	},
 	updateImageFromContent: function(imageDatas){
 		var highlight = this.getHighlightedContent(),
 			id = highlight.getElement('img').get('data-az-file-id');
 		this.detachFile(id);
-		this.insertArea = highlight;
-		this.loadImage.send(JSON.encode(imageDatas));
+		
+		this.getImageSRC(highlight, imageDatas);
 
 	},
 
 	updateImageFromLibrary: function(event){
 		var id = event.target.getElement('img').get('data-az-file-id');
 		this.detachFile(id);
-		this.insertArea = event.target;
-		this.loadImage.send(JSON.encode(this.imageDatas));
+
+		this.getImageSRC(event.target, this.imageDatas);
 
 	},
 
@@ -245,6 +239,19 @@ Input.File = new Class({
 		this.detachFile(id);
 		attachedFile.destroy();
 		this.checkAttachmentLimit();
+
+	},
+
+	getImageSRC: function(insertArea, imageData){
+
+		var loadSuccess = (function(response){
+			this.setImage(response, insertArea);
+		}).bind(this);
+		
+		new Request.JSON({
+			url: '/ajax/files/get_single',
+			onSuccess: loadSuccess
+		}).send(JSON.encode(imageData));
 
 	},
 
