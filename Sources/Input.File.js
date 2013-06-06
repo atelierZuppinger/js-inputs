@@ -191,7 +191,7 @@ Input.File = new Class({
 
 	setImage: function(imageData, insertArea){
 		var img = insertArea.getElement('img'),
-			filename = this.insertArea.getElement('.filename');
+			filename = insertArea.getElement('.filename');
 				
 		img.set({
 			src: imageData.src,
