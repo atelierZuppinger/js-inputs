@@ -254,7 +254,10 @@ Input.File = new Class({
 		new Request.JSON({
 			url: '/ajax/files/get_single',
 			onSuccess: loadSuccess
-		}).send(JSON.encode(imageData));
+		}).send(JSON.encode({
+			id: imageData.id,
+			src: imageData.src
+		}));
 
 	},
 
