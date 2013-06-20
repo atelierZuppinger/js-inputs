@@ -9,6 +9,7 @@ requires:
   - Input/Anchor
   - AZ/AZ.CMS
   - Core/Request.JSON
+  - More/Request.Queue
 
 ...
 */
@@ -56,6 +57,18 @@ Input.File = new Class({
 	Binds: ['storeBehaviour','fileUnlinked', 'fileDeletedCompleted', 'openLibrary', 'insertFromContent', 'insertImage', 'prepare_to_add', 'change_file', 'directUpload', 'updateImageFromLibrary', 'updateImageFromContent', 'deleteImage', 'replaceFromContent', 'directUploadFromContent', 'setImage', 'getImageSRC'],
 	Implements: [Events, Options],
 
+	fields: null,
+	addNew: null,
+	buttons: {},
+	form: null,
+	fieldName: null,
+	fileList: null,
+	base: null,
+	requests: null,
+	cms: null,
+	attachedFiles: null,
+	detachedFiles: null,
+
 	initialize: function(field, form, options){
 
 		this.setOptions(options);
@@ -72,7 +85,11 @@ Input.File = new Class({
 
 		this.fileList = this.field.getElement('.file-list');
 		this.base = this.fileList.getElement('.base');
-
+		this.requests = new Request.Queue({
+			onComplete: function(){
+				console.log('completed!');
+			}
+		});
 
 		var admin = AZ.instances.cms.Admin;
 
@@ -251,10 +268,14 @@ Input.File = new Class({
 			this.setImage(response, insertArea);
 		}).bind(this);
 		
-		new Request.JSON({
+		var request = new Request.JSON({
 			url: '/ajax/files/get_single',
 			onSuccess: loadSuccess
-		}).send(JSON.encode({
+		});
+
+		this.requests.addRequest(imageData.id, request);
+
+		request.send(JSON.encode({
 			id: imageData.id,
 			src: imageData.src
 		}));
