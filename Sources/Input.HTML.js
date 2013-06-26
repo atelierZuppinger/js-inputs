@@ -19,6 +19,13 @@ Input.HTML = new Class({
 		options: {},
 		Binds: ['storeBehaviour', 'check_filled_input', 'load', 'fieldFocus', 'fieldBlur', 'setValue', 'growField'],
 
+		field: null,
+		form: null,
+		tools: null,
+		dialogs: null,
+		editor: null,
+		iframe: null,
+
 		initialize: function(field, form){
 			
 			this.field = field;
@@ -26,7 +33,7 @@ Input.HTML = new Class({
 			
 			this.storeBehaviour( this.field );
 			this.tools = document.getElement('.wysihtml5-toolbar').clone().inject(document.id('admin-bar'));
-//			this.tools.getElements('a').addEvent('click', this.field.focus);
+			this.dialogs = this.tools.getElements('.wysihtml5Dialog');
 			
 			this.editor = new wysihtml5.Editor(field, {
 		    toolbar:        this.tools,
@@ -47,11 +54,8 @@ Input.HTML = new Class({
 				.on('paste', this.growField)
 				.on('load', this.load)
 			
-			
 			this.form.addEvent('reset', this.onEmpty.pass );
 			
-
-
 		},
 		
 		get_parserRules: function(){
@@ -70,10 +74,9 @@ Input.HTML = new Class({
 					h1: {},
 					h2: {},
 					h3: {},
-					a:      {
+					a:  {
 						set_attributes: {
-							target: "_blank",
-							rel:    "nofollow"
+							target: "_blank"
 						},
 						check_attributes: {
 							href:   "url" // important to avoid XSS
@@ -81,7 +84,6 @@ Input.HTML = new Class({
 					}
 				}
 			};
-			
 			return parser_rule;
 		},
 
@@ -89,38 +91,48 @@ Input.HTML = new Class({
 			if( !field.retrieve('behavior') )
 				field.store('behavior', this);
 		},
+
 		setValue: function(){
 			this.field.fireEvent('change');
 		},
+
 		getValue: function(){
 			return this.editor.getValue();
 		},
+
 		getformattedValue: function(){
 			return this.getValue();
 		},
+
 		restoreValue: function(values, focus){
-
 			this.field.set('value', values);
-
 		},
+
 		load: function(){
 			this.editor.toolbar.hide();
 			this.growField();
 		},
+
 		onEmpty: function(){
 			
 		},
 		fieldFocus: function(){
 			this.editor.toolbar.show();
 		},
+
 		growField: function(){
 			var scroll = this.iframe.contentWindow.scrollMaxY;
 			if( scroll )
 				this.iframe.setStyle('height', scroll + 50);
 		},
+
 		fieldBlur: function(){
-			
-			if( !this.tools.getElement('a:hover') )
-				this.editor.toolbar.hide();
+			this.setValue();
+			if (this.tools.getElement('.wysihtml5-command-dialog-opened')) {
+				this.editor.focus();
+				return;
+			}
+			this.editor.toolbar.hide();
 		}
+
 	});
