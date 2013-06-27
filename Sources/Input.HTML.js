@@ -9,6 +9,7 @@ requires:
   - Input/Anchor
   - Core/Element
   - wysihtml5/wysihtml5-0.4
+  - wysihtml5/resize
 
 ...
 */
@@ -70,14 +71,13 @@ Input.HTML = new Class({
 					ul:     {},
 					ol:     {},
 					li:     {},
-					img:    {},
 					h1: {},
 					h2: {},
 					h3: {},
 					a:  {
 						set_attributes: {
-							target: "_blank"
-						},
+        					target: "_blank" // optional
+      					},
 						check_attributes: {
 							href:   "url" // important to avoid XSS
 						}
@@ -94,6 +94,7 @@ Input.HTML = new Class({
 
 		setValue: function(){
 			this.field.fireEvent('change');
+
 		},
 
 		getValue: function(){
@@ -118,18 +119,18 @@ Input.HTML = new Class({
 		},
 		fieldFocus: function(){
 			this.editor.toolbar.show();
+			this.growField();
 		},
 
 		growField: function(){
-			var scroll = this.iframe.contentWindow.scrollMaxY;
-			if( scroll )
-				this.iframe.setStyle('height', scroll + 50);
+			this.iframe.autoResizeY();
+
 		},
 
 		fieldBlur: function(){
 			this.setValue();
+			this.growField();
 			if (this.tools.getElement('.wysihtml5-command-dialog-opened')) {
-				this.editor.focus();
 				return;
 			}
 			this.editor.toolbar.hide();
