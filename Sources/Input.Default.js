@@ -31,6 +31,9 @@ Input.Default = new Class({
 			field.store('behavior', this);
 	},
 	getValue: function(){
+		if (this.field.get('type') == 'checkbox') {
+			return this.field.get('checked').toString();
+		}
 		if( this.field.get('tag') == 'input' || this.field.get('tag') == 'textarea')
 			return this.field.get('value');
 		else
