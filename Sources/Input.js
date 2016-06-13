@@ -175,7 +175,10 @@ Input = new Class({
 				fieldset = field.getParent('fieldset'),
 				select = field.getParent('select'),
 				name = field.get('name') || field.get('data-az-field-name'),
-				thisValues;
+				thisValues,
+				structure = [],
+				o = '',
+				end = '';
 		
 		if( select ){
 			name = select.get('name');
@@ -185,24 +188,19 @@ Input = new Class({
 		if( !name )
 			return;
 		
-		var structure = name.split(/\[|\]/).filter(function(key){
+		structure = name.split(/\[|\]/).filter(function(key){
 			return key!='';
 		});
 		
-		
-		if( structure.length > 1 ){
-			if( !this.values[structure[0]] )
-				thisValues = this.values[structure[0]] = {};
-			else
-				thisValues = this.values[structure[0]];
-			name = structure[1];
-		}	else {
-			name = structure.pick();
-			thisValues = this.values;
-		}
-
-		thisValues[name] = instance.getValue();
-		
+		structure.each(function(key, index){
+			o+= '{' + key + ':';
+			end+= '}';
+			if (index+1==structure.length){
+				o+=JSON.encode(instance.getValue());
+				o+=end;
+			}
+		});
+		this.values = Object.merge(this.values, JSON.decode(o));
 		this.fireEvent('updateValues', this.getValues() );
 		
 	},
