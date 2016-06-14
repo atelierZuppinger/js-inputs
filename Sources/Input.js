@@ -22,7 +22,7 @@ Input = new Class({
 		updateValues: function(){}*/
 		handleFormValidation: true
 	},
-	Binds: ['attach', 'inputChange', 'failValidation', 'formValidate'],
+	Binds: ['attach', 'inputChange', 'checkIfFilled', 'failValidation', 'formValidate'],
 	
 	Implements: [Options, Events],
 
@@ -134,6 +134,24 @@ Input = new Class({
 		this.setValues(field);
 	},
 	/**
+	fn: checkIfFilled()
+	Description: return false if value is empty
+	**/
+	checkIfFilled: function(value){
+		if( value.length) {
+			return true;
+		} else {
+			var subValues = Object.values(value);
+			if (subValues.length){
+				return subValues.each(function(value){
+					return this.checkIfFilled(value);
+				}, this);
+			} else {
+				return false;
+			}
+		}
+	},
+	/**
 	fn: getValues()
 	Description: return the current values
 	**/
@@ -146,20 +164,9 @@ Input = new Class({
 				delete returnedValues[fieldset.field.get('name')];
 			}
 		}, this);
-		
-		returnedValues = Object.filter( returnedValues, function(value, key){
-			if( value.length ) return true;
-			var values = Object.values(value);
-			
-			if( values.length )
-				values = values.filter( function(v){
-					if( v.length )
-						return true;
-				});
-			if( values.length )
-				return true;
-				
-		});
+
+		// suppression des valeurs nulles
+		returnedValues = Object.filter( returnedValues, this.checkIfFilled);
 		
 		return returnedValues;
 	
@@ -200,6 +207,7 @@ Input = new Class({
 				o+=end;
 			}
 		});
+		
 		this.values = Object.merge(this.values, JSON.decode(o));
 		this.fireEvent('updateValues', this.getValues() );
 		
